@@ -8,12 +8,72 @@ struct Pizza {
     let size: Int
 }
 
+struct UserRegistration {
+    let email: String
+    let password: String
+    let passwordConfirmation: String
+}
+
+enum  UserRegistrationError: Error {
+    case invalidEmail, invalidPassword,  passwordsDontMatch
+}
+
+struct FormError<FieldType>: Error {
+    enum Reason {
+        case invalidFormat, required
+    }
+
+    let reason: Reason
+    let field:  FieldType
+}
+
+enum LoginField {
+    case email, password
+}
+
+
 final class VerifyTests: XCTestCase {
     enum MyError: Error, Equatable {
         case error1, error2
     }
 
     // MARK: Factory tests
+    func testCanEasilyTestStruct() {
+        let invalidEmail = UserRegistrationError.invalidEmail
+        let invalidPassword = UserRegistrationError.invalidPassword
+
+        let emailValidator = Verify<String>.inSequence {
+            Verify.minLength(5, otherwise: invalidEmail)
+            Verify.property({ $0.contains("@")}, otherwise: invalidEmail)
+        }
+
+        let password = Verify<String>.inSequence {
+            Verify<String>.property({ $0.count > 5}, otherwise: invalidPassword)
+            Verify.containsSomeOf(CharacterSet.symbols, otherwise: invalidPassword)
+        }
+
+        let registrationValidator = Verify<UserRegistration>.atOnce {
+            Verify<UserRegistration>.at(\.email, validator: emailValidator)
+            Verify<UserRegistration>.at(\.password, validator: password)
+            Verify<UserRegistration>.property({ $0.password == $0.passwordConfirmation  }, otherwise: UserRegistrationError.passwordsDontMatch)
+        }
+
+        let errors = registrationValidator.errors(UserRegistration(email: "", password: "19d", passwordConfirmation: "12d"))
+
+        XCTAssert(errors.count > 0)
+
+    }
+
+    func testAtOnceEvaluatesAllErrors() {
+        let emailValidator = Verify<String>.atOnce {
+            Verify.property({ $0.contains("@")}, otherwise: MyError.error1)
+            Verify.minLength(5, otherwise: MyError.error2)
+        }
+
+        let input = "1"
+        let errorCount = emailValidator.errors(input).count
+        XCTAssert(errorCount == 2)
+    }
 
     func test_valid_factory_always_succeds() {
         let validator = Verify.valid(3)
@@ -38,15 +98,40 @@ final class VerifyTests: XCTestCase {
     }
 
     func test_property_succeed_on_fulfilled_predicate() {
-        let checkCorrectSize = Verify.property({ (str: String) in str.count == 3}, otherwise: MyError.error1)
+        let checkCorrectSize = Verify<String>.property({ $0.count == 3}, otherwise: MyError.error1)
         let result = checkCorrectSize("123")
         XCTAssert(result.isSuccess)
     }
 
     func  test_property_fails_on_unfulfilled_predicate() {
-        let checkCorrectSize = Verify.property({ (str: String) in str.count == 3}, otherwise: MyError.error1)
+        let checkCorrectSize = Verify<String>.property({ $0.count == 3}, otherwise: MyError.error1)
         let result = checkCorrectSize("12")
         XCTAssert(result.isFailure)
+    }
+
+    func test_can_group_field_errors()  {
+        typealias LoginFormError = FormError<LoginField>
+
+        let validator = Verify<Int>.atOnce {
+            Verify<Int>.error(LoginFormError(reason: .invalidFormat, field: .email))
+            Verify<Int>.error(LoginFormError(reason: .required, field: .password))
+        }
+
+        let groupedErrors: [LoginField: [LoginFormError]] = validator.groupedErrors(0, by: { (error:  LoginFormError) in error.field })
+        let fieldErrors: [LoginField: [LoginFormError.Reason]] = groupedErrors.mapValues({  $0.map({ $0.reason })})
+
+        XCTAssert(groupedErrors.values.count > 0)
+        XCTAssert(groupedErrors.keys.count == 2)
+    }
+
+    func test_can_cast_errors_when_running_validator()  {
+        let validator = Verify<Int>.atOnce {
+            Verify<Int>.error(MyError.error1)
+            Verify<Int>.error(MyError.error2)
+        }
+
+        let errors = validator.errors(0, errorType: MyError.self)
+        XCTAssert(errors.count == 2)
     }
 
     // MARK: Validator composition
@@ -74,8 +159,8 @@ final class VerifyTests: XCTestCase {
     }
 
     func test_paralle_validator_sums_errors() {
-        let fail1: Validator_<Int> = Verify.error(MyError.error1)
-        let fail2: Validator_<Int> = Verify.error(MyError.error2)
+        let fail1 = Verify<Int>.error(MyError.error1)
+        let fail2 = Verify<Int>.error(MyError.error2)
 
         let validator = fail1.add(fail2, merge: {fst, snd in fst })
         let result = validator(3)
@@ -87,8 +172,8 @@ final class VerifyTests: XCTestCase {
 
 
     func test_all_composition_accumulates_errors() {
-        let fail1: Validator_<Int> = Verify.error(MyError.error1)
-        let fail2: Validator_<Int> = Verify.error(MyError.error2)
+        let fail1 = Verify<Int>.error(MyError.error1)
+        let fail2 = Verify<Int>.error(MyError.error2)
 
         let validator = Verify.all(fail1, fail2, merge: { fst, snd in fst })
         let result = validator(3)
@@ -107,24 +192,23 @@ final class VerifyTests: XCTestCase {
         XCTAssert(try! validator("123").get() == 6)
     }
 
-//    func test_all_composition_preserves_error_order() {
-//        let fail1: Validator_<Int> = Verify.error(MyError.error1)
-//        let fail2: Validator_<Int> = Verify.error(MyError.error2)
-//
-//        let validator = Verify.all(fail1, fail2, merge: { fst, snd in fst })
-//        let result = validator(3)
-//        if case .failure(let failures) = result {
-////            let error = result?.getFailure()?.first as? MyError
-//            XCTAssert(failures.first as? MyError == MyError.error1)
-//        }
-//
-//
-////        XCTAssert(result.errorCount == 2)
-//
-//    }
+    func test_all_composition_preserves_error_order() {
+        let fail1 = Verify<Int>.error(MyError.error1)
+        let fail2 = Verify<Int>.error(MyError.error2)
+
+        let validator = Verify<Int>.all(fail1, fail2, merge: { fst, snd in fst })
+        let result = validator(3)
+        if case .failure(let failures) = result {
+            XCTAssert(failures.first as? MyError == MyError.error1)
+        }
+
+
+        XCTAssert(result.errorCount == 2)
+
+    }
 
     func test_can_add_parallel_check() {
-        let fail1: Validator_<Int> = Verify.error(MyError.error1)
+        let fail1 = Verify<Int>.error(MyError.error1)
 
         let validator = fail1.addCheck({ value in value > 10}, otherwise: MyError.error2)
 

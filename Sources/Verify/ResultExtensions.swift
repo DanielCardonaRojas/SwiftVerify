@@ -40,15 +40,15 @@ extension Result {
     }
 }
 
-extension Result where Failure == [Error] {
+extension Result where Failure == ValidationErrors {
     var errorCount: Int {
-        getFailure()?.count ?? 0
+        getFailure()?.errors.count ?? 0
     }
 
     var failures: [Error] {
         switch self {
         case .failure(let fail):
-            return fail
+            return fail.errors
         case .success(_):
             return []
         }
