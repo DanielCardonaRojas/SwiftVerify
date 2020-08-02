@@ -118,7 +118,6 @@ final class VerifyTests: XCTestCase {
         }
 
         let groupedErrors: [LoginField: [LoginFormError]] = validator.groupedErrors(0, by: { (error:  LoginFormError) in error.field })
-        let fieldErrors: [LoginField: [LoginFormError.Reason]] = groupedErrors.mapValues({  $0.map({ $0.reason })})
 
         XCTAssert(groupedErrors.values.count > 0)
         XCTAssert(groupedErrors.keys.count == 2)

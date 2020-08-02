@@ -1,5 +1,8 @@
 # SwiftVerify
 
+![Swift Tests](https://github.com/DanielCardonaRojas/SwiftVerify/workflows/Swift%20Tests/badge.svg)
+![GitHub release](https://img.shields.io/github/v/tag/DanielCardonaRojas/SwiftVerify)
+
 A flexible state validation solution.
 
 
@@ -81,21 +84,19 @@ emailValidator.errors(input).count == 2
 
 The  previous example will acumulate both errors.
 
-### Validate and transform
-
-Validators are also capable of transforming their input, so for instance we can do
-parsing and validation in one go.
-
-```dart
-final Validator<String, int> intParsingValidator = (String str) => Right(int.parse(str));
-
-final validator = intParsingValidator.onException((_) => Error('not an integer'));
-```
-
 ### Field validations
 
-Given a model, for instance a UserRegistration struct  we can apply validation to specific properties
-with keypaths.
+Given a model, for instance a UserRegistration struct:
+
+```swift
+struct UserRegistration {
+    let email: String
+    let password: String
+    let passwordConfirmation: String
+}
+```
+
+we can apply validation to specific properties with keypaths.
 
 
 ```swift
