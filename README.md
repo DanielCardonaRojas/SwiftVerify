@@ -31,15 +31,15 @@ A simpler way is to use some of the built in helpers.
 You can easily create validators on any type via extensions: 
 
 ```swift
-extension Validate where Subject == Int {
+extension Verify where Subject == Int {
     public static func greaterThenZero(otherwise error: Error) -> Validator_<Subject> {
         Verify<Int>.property({ $0  >  0}, otherwise: error)
     }
 }
 
-extension Validate where Subject == String {
+extension Verify where Subject == String {
     public static func minLength(_ value: Int, otherwise error: Error) -> Validator_<Subject> {
-    Validate.property({ (string: String) in string.count >= value }, otherwise: error)
+    Verify.property({ (string: String) in string.count >= value }, otherwise: error)
     }
 }
 ```
@@ -59,8 +59,8 @@ Verify has to flavors of composition, a senquenced or in order composition, or a
 
 ```swift
 let emailValidator = Verify<String>.inSequence {
-    Validate.property({ $0.contains("@")}, otherwise: invalidEmail)
-    Validate.minLength(5, otherwise: invalidEmail)
+    Verify.property({ $0.contains("@")}, otherwise: invalidEmail)
+    Verify.minLength(5, otherwise: invalidEmail)
 }
 
 let input = "1"
@@ -74,8 +74,8 @@ This is usually the desired behavour  since we want to validate one condition at
 
 ```swift
 let emailValidator = Verify<String>.atOnce {
-    Validate.property({ $0.contains("@")}, otherwise: invalidEmail)
-    Validate.minLength(5, otherwise: invalidEmail)
+    Verify.property({ $0.contains("@")}, otherwise: invalidEmail)
+    Verify.minLength(5, otherwise: invalidEmail)
 }
 
 let input = "1"
@@ -104,13 +104,13 @@ let invalidEmail = UserRegistrationError.invalidEmail
 let invalidPassword = UserRegistrationError.invalidPassword
 
 let emailValidator = Verify<String>.inSequence {
-    Validate.minLength(5, otherwise: invalidEmail)
-    Validate.property({ $0.contains("@")}, otherwise: invalidEmail)
+    Verify.minLength(5, otherwise: invalidEmail)
+    Verify.property({ $0.contains("@")}, otherwise: invalidEmail)
 }
 
 let password = Verify<String>.inSequence {
     Verify<String>.property({ $0.count > 5}, otherwise: invalidPassword)
-    Validate.containsSomeOf(CharacterSet.symbols, otherwise: invalidPassword)
+    Verify.containsSomeOf(CharacterSet.symbols, otherwise: invalidPassword)
 }
 
 let registrationValidator = Verify<UserRegistration>.atOnce {
