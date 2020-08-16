@@ -8,8 +8,8 @@ A flexible state validation solution.
 
 ## Features
 
-- function builder composition API
-- Easy composition of small validator into more complex ones.
+- Function builder composition API
+- Easy composition of small validators into more complex ones.
 
 ## Usage
 
