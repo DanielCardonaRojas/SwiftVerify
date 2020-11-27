@@ -2,9 +2,9 @@
 
 ![Swift Tests](https://github.com/DanielCardonaRojas/SwiftVerify/workflows/Swift%20Tests/badge.svg)
 ![GitHub release](https://img.shields.io/github/v/tag/DanielCardonaRojas/SwiftVerify)
+[![codecov](https://codecov.io/gh/DanielCardonaRojas/SwiftVerify/branch/master/graph/badge.svg?token=9MK1R8PV24)](https://codecov.io/gh/DanielCardonaRojas/SwiftVerify)
 
 A flexible state validation solution.
-
 
 ## Features
 
@@ -24,11 +24,12 @@ let validateEmail = Verify<String>.property({ $0.contains("@") }, otherwise: .my
 A simpler way is to use some of the built in helpers.
 
 ```swift
+
 ```
 
 ### Easily extensible
 
-You can easily create validators on any type via extensions: 
+You can easily create validators on any type via extensions:
 
 ```swift
 extension Verify where Subject == Int {
@@ -44,7 +45,7 @@ extension Verify where Subject == String {
 }
 ```
 
-Having created these extensions they will become avaiable like this: 
+Having created these extensions they will become avaiable like this:
 
 ```swift
 Verify<String>.minLength(10, otherwise: .myError)
@@ -68,7 +69,7 @@ emailValidator.errors(input).count == 1
 ```
 
 Notice that even the input "1" fails both the validations only one error will be accumulated.
-This is usually the desired behavour  since we want to validate one condition at a time.
+This is usually the desired behavour since we want to validate one condition at a time.
 
 **Parallel composition**
 
@@ -82,7 +83,7 @@ let input = "1"
 emailValidator.errors(input).count == 2
 ```
 
-The  previous example will acumulate both errors.
+The previous example will acumulate both errors.
 
 ### Field validations
 
@@ -97,7 +98,6 @@ struct UserRegistration {
 ```
 
 we can apply validation to specific properties with keypaths.
-
 
 ```swift
 let invalidEmail = UserRegistrationError.invalidEmail
@@ -126,13 +126,13 @@ let errors = registrationValidator.errors(UserRegistration(email: "", password: 
 ### Run a validator
 
 Running a validator is a simple as passing in a parameter since its just a function.
-To be a bit more eloquent a `verify` method is provided, this method is special because besides 
-forwarding the argument to the calling validator it can also be used to filter the error list and 
+To be a bit more eloquent a `verify` method is provided, this method is special because besides
+forwarding the argument to the calling validator it can also be used to filter the error list and
 have it cast to a specific error type. Just supply a specific type parameter.
 
 ### Form validation
 
-Often times you will have modeled your error type similar to: 
+Often times you will have modeled your error type similar to:
 
 ```swift
 struct FormError<FieldType>: Error {
@@ -165,6 +165,3 @@ let groupedErrors: [LoginField: [LoginFormError]] = validator.groupedErrors(0, b
 
 let fieldErrors: [LoginField: [LoginFormError.Reason]] = groupedErrors.mapValues({  $0.map({ $0.reason })})
 ```
-
-
-
