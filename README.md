@@ -54,7 +54,7 @@ Verify<Int>.greaterThenZero(otherwise: .myOtherError)
 
 ### Composition
 
-Verify has to flavors of composition, a senquenced or in order composition, or an eager / parallel composition.
+Verify has two flavors of composition, a senquenced or in order composition, or an eager / parallel composition.
 
 **Sequenced composition**
 
