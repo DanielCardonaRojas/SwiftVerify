@@ -1,8 +1,6 @@
 import XCTest
 @testable import Verify
 
-
-
 struct Pizza {
     let ingredients: [String]
     let size: Int
@@ -15,7 +13,7 @@ struct UserRegistration {
 }
 
 enum  UserRegistrationError: Error {
-    case invalidEmail, invalidPassword,  passwordsDontMatch
+    case invalidEmail, invalidPassword, passwordsDontMatch
 }
 
 struct FormError<FieldType>: Error {
@@ -24,13 +22,12 @@ struct FormError<FieldType>: Error {
     }
 
     let reason: Reason
-    let field:  FieldType
+    let field: FieldType
 }
 
 enum LoginField {
     case email, password
 }
-
 
 final class VerifyTests: XCTestCase {
     enum MyError: Error, Equatable {
@@ -109,7 +106,7 @@ final class VerifyTests: XCTestCase {
         XCTAssert(result.isFailure)
     }
 
-    func test_can_group_field_errors()  {
+    func test_can_group_field_errors() {
         typealias LoginFormError = FormError<LoginField>
 
         let validator = Verify<Int>.atOnce {
@@ -117,13 +114,13 @@ final class VerifyTests: XCTestCase {
             Verify<Int>.error(LoginFormError(reason: .required, field: .password))
         }
 
-        let groupedErrors: [LoginField: [LoginFormError]] = validator.groupedErrors(0, by: { (error:  LoginFormError) in error.field })
+        let groupedErrors: [LoginField: [LoginFormError]] = validator.groupedErrors(0, by: { (error: LoginFormError) in error.field })
 
         XCTAssert(groupedErrors.values.count > 0)
         XCTAssert(groupedErrors.keys.count == 2)
     }
 
-    func test_can_cast_errors_when_running_validator()  {
+    func test_can_cast_errors_when_running_validator() {
         let validator = Verify<Int>.atOnce {
             Verify<Int>.error(MyError.error1)
             Verify<Int>.error(MyError.error2)
@@ -143,14 +140,13 @@ final class VerifyTests: XCTestCase {
 
         XCTAssert(validator(3).errorCount == 1)
     }
-    
+
     func testSomething() {
         Verify<Pizza>.inOrder(
             Verify.at(\.size, validator: Verify.greaterThanZero(otherwise: MyError.error1))
         )
-        
-    }
 
+    }
 
     func test_flatmap_errors_out_if_caller_fails() {
         let fail1: Validator<Int> = Verify.error(MyError.error1)
@@ -168,7 +164,7 @@ final class VerifyTests: XCTestCase {
         let fail1 = Verify<Int>.error(MyError.error1)
         let fail2 = Verify<Int>.error(MyError.error2)
 
-        let validator = fail1.add(fail2, merge: {fst, snd in fst })
+        let validator = fail1.add(fail2, merge: {fst, _ in fst })
         let result = validator(3)
 
         XCTAssert(result.errorCount == 2)
@@ -176,12 +172,11 @@ final class VerifyTests: XCTestCase {
         XCTAssert(result.getFailure()?.last as? MyError == MyError.error2)
     }
 
-
     func test_all_composition_accumulates_errors() {
         let fail1 = Verify<Int>.error(MyError.error1)
         let fail2 = Verify<Int>.error(MyError.error2)
 
-        let validator = Verify.atOnce(fail1, fail2, merge: { fst, snd in fst })
+        let validator = Verify.atOnce(fail1, fail2, merge: { fst, _ in fst })
         let result = validator(3)
 
         XCTAssert(result.errorCount == 2)
@@ -202,12 +197,11 @@ final class VerifyTests: XCTestCase {
         let fail1 = Verify<Int>.error(MyError.error1)
         let fail2 = Verify<Int>.error(MyError.error2)
 
-        let validator = Verify<Int>.atOnce(fail1, fail2, merge: { fst, snd in fst })
+        let validator = Verify<Int>.atOnce(fail1, fail2, merge: { fst, _ in fst })
         let result = validator(3)
         if case .failure(let failures) = result {
             XCTAssert(failures.first as? MyError == MyError.error1)
         }
-
 
         XCTAssert(result.errorCount == 2)
 
@@ -223,9 +217,7 @@ final class VerifyTests: XCTestCase {
         XCTAssert(result.errorCount == 2)
     }
 
-
-
     static var allTests = [
-        ("testExample", test_can_add_parallel_check),
+        ("testExample", test_can_add_parallel_check)
     ]
 }

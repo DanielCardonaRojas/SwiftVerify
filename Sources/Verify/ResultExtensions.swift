@@ -11,9 +11,9 @@ extension Result {
 
     var isFailure: Bool {
         switch self {
-        case .failure(_):
+        case .failure:
             return true
-        case .success(_):
+        case .success:
             return false
         }
     }
@@ -34,7 +34,7 @@ extension Result {
         switch self {
         case .failure(let fail):
             return fail
-        case .success(_):
+        case .success:
             return nil
         }
     }
@@ -49,7 +49,7 @@ extension Result where Failure == ValidationErrors {
         switch self {
         case .failure(let fail):
             return fail.errors
-        case .success(_):
+        case .success:
             return []
         }
     }

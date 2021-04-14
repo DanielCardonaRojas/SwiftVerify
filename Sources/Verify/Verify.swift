@@ -67,7 +67,7 @@ public class ValidatorT<S, T> {
             - Parameter fieldSelector: A function that will convert an error to a specific field
      */
     public func groupedErrors<ErrorType, Field>(_ subject: S, by fieldSelector: (ErrorType) -> Field) -> [Field: [ErrorType]] {
-        guard let fieldErrors = self.errors(subject) as? [ErrorType] else  {
+        guard let fieldErrors = self.errors(subject) as? [ErrorType] else {
             return [:]
         }
 
@@ -97,8 +97,7 @@ public class ValidatorT<S, T> {
      - Returns: A validator that will run the caller validation in parallel with the supplied validator.
      */
     public func add<T2, O>(_ validator: ValidatorT<S, T2>, merge: @escaping (T, T2) -> O)
-        -> ValidatorT<S, O>
-    {
+        -> ValidatorT<S, O> {
         ValidatorT<S, O> { input in
             let result1 = self.validator(input)
             let result2 = validator.verify(input)
@@ -109,9 +108,9 @@ public class ValidatorT<S, T> {
             case (.failure(let error1), .failure(let error2)):
 
                 return .failure(ValidationErrors(fromList: error1.errors + error2.errors))
-            case (.success(_), .failure(let error2)):
+            case (.success, .failure(let error2)):
                 return .failure(error2)
-            case (.failure(let error1), .success(_)):
+            case (.failure(let error1), .success):
                 return .failure(error1)
             }
         }
@@ -137,7 +136,7 @@ extension ValidatorT {
      - Parameter otherwise: The error added to the error list of the caller.
      */
     public func addCheck(_ check: @escaping Predicate<S>, otherwise error: Error) -> ValidatorT {
-        self.add(Verify.that(check, otherwise: error), merge: { fst, snd in fst })
+        self.add(Verify.that(check, otherwise: error), merge: { fst, _ in fst })
     }
     /**
      Chaings a validation created from the provided predicate to the caller.
@@ -146,8 +145,7 @@ extension ValidatorT {
      - Returns: Validators that will run a sequential check when caller succeeds.
      */
     public func thenCheck(_ predicate: @escaping Predicate<S>, otherwise failure: Error)
-        -> ValidatorT
-    {
+        -> ValidatorT {
         ValidatorT<S, T> { input in
             let result = self.validator(input)
             return result.flatMap({
@@ -165,8 +163,7 @@ extension ValidatorT {
      - Returns: Validators that includes checks from caller and the validation on child property.
 
      */
-    public func thenOn<F>(_ keyPath: KeyPath<S, F>, check validator: Validator<F>) -> Validator<S>
-    {
+    public func thenOn<F>(_ keyPath: KeyPath<S, F>, check validator: Validator<F>) -> Validator<S> {
         ValidatorT<S, S> { (s: S) in
             let subfield = s[keyPath: keyPath]
             return validator.validator(subfield).map({ _ in s })
@@ -187,18 +184,16 @@ extension ValidatorT where S == T {
 // MARK: - Factories
 
 public enum Verify<Subject> {
-    
+
     public static func that(_ predicate: @escaping Predicate<Subject>, otherwise error: Error)
-        -> Validator<Subject>
-    {
+        -> Validator<Subject> {
         ValidatorT { subject in
             predicate(subject) ? .success(subject) : .failure(ValidationErrors(error))
         }
     }
 
     public static func at<F>(_ keyPath: KeyPath<Subject, F>, validator: Validator<F>)
-        -> Validator<Subject>
-    {
+        -> Validator<Subject> {
         ValidatorT.lift({ $0 }).thenOn(keyPath, check: validator)
     }
 
@@ -216,7 +211,7 @@ public enum Verify<Subject> {
             return validator.verify(value).map({ Optional.some($0) })
         }
     }
-    
+
     // MARK: Main composing functions
 
     /**
@@ -228,12 +223,10 @@ public enum Verify<Subject> {
          Note: Tipically subjects won't be mutated of transformed in validating functions so output will be the same.
      */
     public static func atOnce(_ validators: Validator<Subject>..., merge: ((Subject, Subject) -> Subject)? = nil)
-        -> Validator<Subject>
-    {
-        composeAll(validators, merge: merge ?? { fst, snd in fst })
+        -> Validator<Subject> {
+        composeAll(validators, merge: merge ?? { fst, _ in fst })
     }
-    
-    
+
     /**
      Creates a validator composing the provided validators in a parallel way
 
@@ -243,8 +236,7 @@ public enum Verify<Subject> {
          Note: Tipically subjects won't be mutated of transformed in validating functions so output will be the same.
      */
     public static func atOnce(@ValidationParallelBuilder<Subject> _ content: () -> Validator<Subject>)
-    -> Validator<Subject>
-    {
+    -> Validator<Subject> {
         content()
     }
 
@@ -258,7 +250,7 @@ public enum Verify<Subject> {
     public static func inOrder(_ validators: Validator<Subject>...) -> Validator<Subject> {
         composeSequential(validators)
     }
-    
+
     /**
      Create a Validator by composing the provided validators in a sequential fashion.
      
@@ -269,11 +261,10 @@ public enum Verify<Subject> {
      - Returns: A validators the will either succeed or fails with exactly one error.
      */
     public static func inOrder(@ValidationSequencedBuilder<Subject> _ content: () -> Validator<Subject>)
-    -> Validator<Subject>
-    {
+    -> Validator<Subject> {
         content()
     }
-    
+
     // MARK: Constant validators
     /**
      Creates a validator that always succeeds
@@ -300,7 +291,6 @@ public enum Verify<Subject> {
     }
 }
 
-
 // MARK: - Composition functions
 func composeSequential<S>(_ validators: [Validator<S>]) -> Validator<S> {
     let initial = validators.first!
@@ -313,8 +303,7 @@ func composeAll<S>(_ validators: [Validator<S>], merge: @escaping (S, S) -> S) -
         let results = validators.map({ validator in validator.validator(input) })
         let failure = results.compactMap({ $0.getFailure() })
             .reduce(
-                ValidationErrors(fromList: []),
-                { acc, errors in
+                ValidationErrors(fromList: []), { acc, errors in
                     ValidationErrors(fromList: acc.errors + errors.errors)
                 })
 
@@ -344,7 +333,7 @@ public struct ValidationSequencedBuilder<Subject> {
 public struct ValidationParallelBuilder<Subject> {
 
     public static func buildBlock(_ validators: Validator<Subject>...) -> Validator<Subject> {
-        composeAll(validators, merge: { fst, snd in fst })
+        composeAll(validators, merge: { fst, _ in fst })
     }
 }
 
@@ -373,4 +362,3 @@ public struct ValidationErrors: Error, LocalizedError {
     }
 
 }
-
