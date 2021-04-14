@@ -33,7 +33,7 @@ You can easily create validators on any type via extensions:
 
 ```swift
 extension Verify where Subject == Int {
-    public static func greaterThenZero(otherwise error: Error) -> Validator_<Subject> {
+    public static func greaterThanZero(otherwise error: Error) -> Validator_<Subject> {
         Verify<Int>.property({ $0  >  0}, otherwise: error)
     }
 }
@@ -49,7 +49,7 @@ Having created these extensions they will become avaiable like this:
 
 ```swift
 Verify<String>.minLength(10, otherwise: .myError)
-Verify<Int>.greaterThenZero(otherwise: .myOtherError)
+Verify<Int>.greaterThanZero(otherwise: .myOtherError)
 ```
 
 ### Composition

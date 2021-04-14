@@ -42,12 +42,12 @@ final class VerifyTests: XCTestCase {
         let invalidEmail = UserRegistrationError.invalidEmail
         let invalidPassword = UserRegistrationError.invalidPassword
 
-        let emailValidator = Verify<String>.inSequence {
+        let emailValidator = Verify<String>.inOrder {
             Verify.minLength(5, otherwise: invalidEmail)
             Verify.property({ $0.contains("@")}, otherwise: invalidEmail)
         }
 
-        let password = Verify<String>.inSequence {
+        let password = Verify<String>.inOrder {
             Verify<String>.property({ $0.count > 5}, otherwise: invalidPassword)
             Verify.containsSomeOf(CharacterSet.symbols, otherwise: invalidPassword)
         }
@@ -55,7 +55,7 @@ final class VerifyTests: XCTestCase {
         let registrationValidator = Verify<UserRegistration>.atOnce {
             Verify<UserRegistration>.at(\.email, validator: emailValidator)
             Verify<UserRegistration>.at(\.password, validator: password)
-            Verify<UserRegistration>.property({ $0.password == $0.passwordConfirmation  }, otherwise: UserRegistrationError.passwordsDontMatch)
+            Verify<UserRegistration>.that({ $0.password == $0.passwordConfirmation  }, otherwise: UserRegistrationError.passwordsDontMatch)
         }
 
         let errors = registrationValidator.errors(UserRegistration(email: "", password: "19d", passwordConfirmation: "12d"))
@@ -136,17 +136,24 @@ final class VerifyTests: XCTestCase {
     // MARK: Validator composition
 
     func test_flatmap_does_not_accumulate_errors() {
-        let fail1: Validator_<Int> = Verify.error(MyError.error1)
-        let fail2: Validator_<Int> = Verify.error(MyError.error2)
+        let fail1: Validator<Int> = Verify.error(MyError.error1)
+        let fail2: Validator<Int> = Verify.error(MyError.error2)
 
         let validator = fail1.andThen(fail2)
 
         XCTAssert(validator(3).errorCount == 1)
     }
+    
+    func testSomething() {
+        Verify<Pizza>.inOrder(
+            Verify.at(\.size, validator: Verify.greaterThanZero(otherwise: MyError.error1))
+        )
+        
+    }
 
 
     func test_flatmap_errors_out_if_caller_fails() {
-        let fail1: Validator_<Int> = Verify.error(MyError.error1)
+        let fail1: Validator<Int> = Verify.error(MyError.error1)
         let success = Verify.valid(3)
 
         let validator = fail1.andThen(success)
@@ -174,15 +181,15 @@ final class VerifyTests: XCTestCase {
         let fail1 = Verify<Int>.error(MyError.error1)
         let fail2 = Verify<Int>.error(MyError.error2)
 
-        let validator = Verify.all(fail1, fail2, merge: { fst, snd in fst })
+        let validator = Verify.atOnce(fail1, fail2, merge: { fst, snd in fst })
         let result = validator(3)
 
         XCTAssert(result.errorCount == 2)
     }
 
     func test_flatmap_can_also_transform_input() {
-        let validator1 = Validator.lift({ (str: String) in str.count })
-        let validator2 = Validator<Int, Int> { (value: Int) in
+        let validator1 = ValidatorT.lift({ (str: String) in str.count })
+        let validator2 = ValidatorT<Int, Int> { (value: Int) in
             .success(value * 2)
         }
 
@@ -195,7 +202,7 @@ final class VerifyTests: XCTestCase {
         let fail1 = Verify<Int>.error(MyError.error1)
         let fail2 = Verify<Int>.error(MyError.error2)
 
-        let validator = Verify<Int>.all(fail1, fail2, merge: { fst, snd in fst })
+        let validator = Verify<Int>.atOnce(fail1, fail2, merge: { fst, snd in fst })
         let result = validator(3)
         if case .failure(let failures) = result {
             XCTAssert(failures.first as? MyError == MyError.error1)
