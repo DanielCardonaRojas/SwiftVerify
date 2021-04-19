@@ -7,9 +7,16 @@ on:
     branches: [master]
 
 jobs:
+  deploy_docs:
+    runs-on: macos-latest
+    steps:
+      - uses: sersoft-gmbh/swifty-docs-action@v1
+        with:
+          module-version: 1.2.3
+          output: docs
+
   build:
     runs-on: macos-latest
-
     steps:
       - uses: actions/checkout@v2
       - name: Build
