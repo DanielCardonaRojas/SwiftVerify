@@ -35,8 +35,8 @@ public class ValidatorT<S, T> {
      Transforms the output of the validator i.e the subject/state being
      validated.
 
-     - Parameter transform: The function to modify the output of result of the validator.
-     - Returns: A validator with the same validaiton logic of caller but with coerced output.
+     - Parameter transform: A function that can transform the resulting ouput of the validator.
+     - Returns: A validator with the same validation logic of caller but with a potentially different output type and value.
      */
     public func map<O>(_ transform: @escaping (T) -> O) -> ValidatorT<S, O> {
         ValidatorT<S, O> { input in
@@ -46,6 +46,8 @@ public class ValidatorT<S, T> {
     }
 
     // MARK: Utilities
+
+    /// Calls the validator with a provided subject
     public func verify(_ subject: S) -> Result<T, ValidationErrors> {
         return self.validator(subject)
     }
@@ -136,13 +138,34 @@ extension ValidatorT {
      - Parameter otherwise: The error added to the error list of the caller.
      */
     public func addCheck(_ check: @escaping Predicate<S>, otherwise error: Error) -> ValidatorT {
-        self.add(Verify.that(check, otherwise: error), merge: { fst, _ in fst })
+        add(Verify.that(check, otherwise: error), merge: { fst, _ in fst })
     }
+
+    /**
+       Chains a validator created from a predicate
+     
+        Note the validator will only run after the current validator succeeds
+     
+        - Parameter predicate: A predicate to test when the calling validator succeeds
+        - Parameter failure: The error associated with this validator
+     
+     This is a shorthand for `andThen(Verify.that(...))`
+     
+     */
+    public func andThat(_ predicate: @escaping Predicate<S>, otherwise failure: Error) -> ValidatorT {
+        ValidatorT<S, T> { input in
+            let result = self.validator(input)
+            return result.flatMap({
+                predicate(input) ? .success($0) : Result.failure(ValidationErrors(failure))
+            })
+        }
+    }
+
     /**
      Chaings a validation created from the provided predicate to the caller.
 
      - Parameter predicate: The predicate to check
-     - Returns: Validators that will run a sequential check when caller succeeds.
+     - Returns: Validators that will run a sequential check when the caller succeeds.
      */
     public func thenCheck(_ predicate: @escaping Predicate<S>, otherwise failure: Error)
         -> ValidatorT {
@@ -171,8 +194,14 @@ extension ValidatorT {
     }
 }
 
+// MARK: - Validator methods
 extension ValidatorT where S == T {
 
+    /**
+     Bypass the validator when a certain condition holds true
+     
+     - Parameter predicate: A predicate determining if should bypass or not
+     */
     public func ignore(when predicate: @escaping Predicate<S>) -> ValidatorT {
         ValidatorT { input in
             if predicate(input) { return .success(input) }
@@ -185,6 +214,14 @@ extension ValidatorT where S == T {
 
 public enum Verify<Subject> {
 
+    /**
+     Create a Validator from a predicate
+     
+     ```
+     e.g Verify<String>.that({ !$0.isEmpty }, otherwise: .requiredField)
+     or  Verify.that({ (String input) in !input.isEmpty }, otherwise: .requiredField)
+     ```
+     */
     public static func that(_ predicate: @escaping Predicate<Subject>, otherwise error: Error)
         -> Validator<Subject> {
         ValidatorT { subject in
@@ -192,6 +229,11 @@ public enum Verify<Subject> {
         }
     }
 
+    /**
+         Create a validator that acts on a specific property of the validated subject. Useful for validating structs and other composite types.
+     
+     - Parameter keyPath: A keypath selecting the property or attribue of the subject.
+     */
     public static func at<F>(_ keyPath: KeyPath<Subject, F>, validator: Validator<F>)
         -> Validator<Subject> {
         ValidatorT.lift({ $0 }).thenOn(keyPath, check: validator)
@@ -200,7 +242,7 @@ public enum Verify<Subject> {
     /**
      Creates a validator on optional from a validator
 
-     Note will only runt the  provided  validator if  the input is Optional.some
+     Note will only run the  provided  validator if  the input is Optional.some
      */
     public static func optional<T>(_ validator: ValidatorT<Subject, T>) -> ValidatorT<Subject?, T?> {
         ValidatorT<Subject?, T?> { input in

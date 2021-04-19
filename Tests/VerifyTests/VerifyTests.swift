@@ -1,34 +1,6 @@
 import XCTest
 @testable import Verify
 
-struct Pizza {
-    let ingredients: [String]
-    let size: Int
-}
-
-struct UserRegistration {
-    let email: String
-    let password: String
-    let passwordConfirmation: String
-}
-
-enum  UserRegistrationError: Error {
-    case invalidEmail, invalidPassword, passwordsDontMatch
-}
-
-struct FormError<FieldType>: Error {
-    enum Reason {
-        case invalidFormat, required
-    }
-
-    let reason: Reason
-    let field: FieldType
-}
-
-enum LoginField {
-    case email, password
-}
-
 final class VerifyTests: XCTestCase {
     enum MyError: Error, Equatable {
         case error1, error2
@@ -41,11 +13,11 @@ final class VerifyTests: XCTestCase {
 
         let emailValidator = Verify<String>.inOrder {
             Verify.minLength(5, otherwise: invalidEmail)
-            Verify.property({ $0.contains("@")}, otherwise: invalidEmail)
+            Verify.that({ $0.contains("@")}, otherwise: invalidEmail)
         }
 
         let password = Verify<String>.inOrder {
-            Verify<String>.property({ $0.count > 5}, otherwise: invalidPassword)
+            Verify<String>.that({ $0.count > 5}, otherwise: invalidPassword)
             Verify.containsSomeOf(CharacterSet.symbols, otherwise: invalidPassword)
         }
 
@@ -63,7 +35,7 @@ final class VerifyTests: XCTestCase {
 
     func testAtOnceEvaluatesAllErrors() {
         let emailValidator = Verify<String>.atOnce {
-            Verify.property({ $0.contains("@")}, otherwise: MyError.error1)
+            Verify.that({ $0.contains("@")}, otherwise: MyError.error1)
             Verify.minLength(5, otherwise: MyError.error2)
         }
 
@@ -95,23 +67,22 @@ final class VerifyTests: XCTestCase {
     }
 
     func test_property_succeed_on_fulfilled_predicate() {
-        let checkCorrectSize = Verify<String>.property({ $0.count == 3}, otherwise: MyError.error1)
+        let checkCorrectSize = Verify<String>.that({ $0.count == 3}, otherwise: MyError.error1)
         let result = checkCorrectSize("123")
         XCTAssert(result.isSuccess)
     }
 
     func  test_property_fails_on_unfulfilled_predicate() {
-        let checkCorrectSize = Verify<String>.property({ $0.count == 3}, otherwise: MyError.error1)
+        let checkCorrectSize = Verify<String>.that({ $0.count == 3}, otherwise: MyError.error1)
         let result = checkCorrectSize("12")
         XCTAssert(result.isFailure)
     }
 
     func test_can_group_field_errors() {
-        typealias LoginFormError = FormError<LoginField>
 
         let validator = Verify<Int>.atOnce {
-            Verify<Int>.error(LoginFormError(reason: .invalidFormat, field: .email))
-            Verify<Int>.error(LoginFormError(reason: .required, field: .password))
+            Verify<Int>.error(LoginFormError.badFormat(.email))
+            Verify<Int>.error(LoginFormError.required(.password))
         }
 
         let groupedErrors: [LoginField: [LoginFormError]] = validator.groupedErrors(0, by: { (error: LoginFormError) in error.field })
@@ -217,7 +188,20 @@ final class VerifyTests: XCTestCase {
         XCTAssert(result.errorCount == 2)
     }
 
+    func testExample() {
+        let validator = Verify<UserRegistration>
+            .that({ !$0.email.isEmpty }, otherwise: LoginFormError.required(.email))
+            .andThat({ !$0.password.isEmpty}, otherwise: LoginFormError.required(.password))
+            .thenCheck({ $0.password == $0.passwordConfirmation}, otherwise: LoginFormError.required(.passwordConfirmation))
+
+        let testUserRegistration = UserRegistration(email: "", password: "", passwordConfirmation: "***")
+
+        let errors = validator.errors(testUserRegistration)
+        XCTAssert(errors.count == 1)
+    }
+
     static var allTests = [
         ("testExample", test_can_add_parallel_check)
     ]
+
 }

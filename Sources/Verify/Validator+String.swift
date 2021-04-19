@@ -13,7 +13,7 @@ extension Verify where Subject == Int {
 }
 
 extension Verify where Subject == String {
-    public static func property(_ predicate: @escaping Predicate<Subject>, otherwise error: Error)
+    public static func that(_ predicate: @escaping Predicate<Subject>, otherwise error: Error)
         -> Validator<Subject> {
         ValidatorT { subject in
             predicate(subject) ? .success(subject) : .failure(ValidationErrors(error))
@@ -26,7 +26,7 @@ extension Verify where Subject == String {
      - Parameter error: The error in case length criteria not fulfilled.
      */
     public static func minLength(_ value: Int, otherwise error: Error) -> Validator<Subject> {
-        Verify.property({ (string: String) in string.count >= value }, otherwise: error)
+        Verify.that({ (string: String) in string.count >= value }, otherwise: error)
     }
 
     /**
@@ -36,7 +36,7 @@ extension Verify where Subject == String {
      - Parameter error: The error in case length criteria not fulfilled.
      */
     public static func maxLength(_ value: Int, otherwise error: Error) -> Validator<Subject> {
-        Verify.property({ (string: String) in string.count <= value }, otherwise: error)
+        Verify.that({ (string: String) in string.count <= value }, otherwise: error)
     }
 
     /**
@@ -48,7 +48,7 @@ extension Verify where Subject == String {
      */
     public static func dissallowedCharacterSet(_ set: CharacterSet, otherwise error: Error)
         -> Validator<Subject> {
-        Verify.property({ (string: String) in
+        Verify.that({ (string: String) in
                 CharacterSet(charactersIn: string).isDisjoint(with: set)
             }, otherwise: error)
     }
@@ -62,7 +62,7 @@ extension Verify where Subject == String {
     public static func fromCharacterSet(_ set: CharacterSet, otherwise error: Error) -> Validator<
         Subject
     > {
-        Verify.property({ (string: String) in
+        Verify.that({ (string: String) in
                 CharacterSet(charactersIn: string).isSubset(of: set)
             }, otherwise: error)
     }
@@ -76,7 +76,7 @@ extension Verify where Subject == String {
     public static func containsSomeOf(_ set: CharacterSet, otherwise error: Error) -> Validator<
         Subject
         > {
-            Verify.property({ (string: String) in
+            Verify.that({ (string: String) in
                     !CharacterSet(charactersIn: string).isDisjoint(with: set)
             }, otherwise: error)
     }
@@ -92,12 +92,20 @@ extension Verify where Subject == String {
      */
     public static func matchesRegex(_ regex: NSRegularExpression, otherwise error: Error)
         -> Validator<Subject> {
-        Verify.property({ (string: String) in
+        Verify.that({ (string: String) in
                 let matches = regex.numberOfMatches(
                     in: string, options: [], range: NSRange(location: 0, length: string.utf16.count)
                 )
                 return matches == 1
             }, otherwise: error)
 
+    }
+}
+
+extension String {
+    public static func ~= (lhs: String, rhs: String) -> Bool {
+        guard let regex = try? NSRegularExpression(pattern: rhs) else { return lhs == rhs }
+        let range = NSRange(location: 0, length: lhs.utf16.count)
+        return regex.firstMatch(in: lhs, options: [], range: range) != nil
     }
 }
