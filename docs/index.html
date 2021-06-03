@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a title="  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html"> Docs</a> (61% documented)</p>
+        <p class="header-right">
+          <form role="search" action="search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html"> Reference</a>
+        <img id="carat" src="img/carat.png" />
+          Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/ValidatorT.html">ValidatorT</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/Verify.html">Verify</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/ValidationErrors.html">ValidationErrors</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ValidationParallelBuilder.html">ValidationParallelBuilder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ValidationSequencedBuilder.html">ValidationSequencedBuilder</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:6Verify9Predicatea">Predicate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:6Verify10Validationa">Validation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:6Verify11ValidationTa">ValidationT</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:6Verify9Validatora">Validator</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <h1 id='swiftverify' class='heading'>SwiftVerify</h1>
+
+<p><img src="https://github.com/DanielCardonaRojas/SwiftVerify/workflows/Swift%20Tests/badge.svg" alt="Swift Tests">
+<img src="https://img.shields.io/github/v/tag/DanielCardonaRojas/SwiftVerify" alt="GitHub release">
+<a href="https://codecov.io/gh/DanielCardonaRojas/SwiftVerify"><img src="https://codecov.io/gh/DanielCardonaRojas/SwiftVerify/branch/master/graph/badge.svg?token=9MK1R8PV24" alt="codecov"></a></p>
+
+<p>A flexible state validation solution.</p>
+<h2 id='features' class='heading'>Features</h2>
+
+<ul>
+<li>Function builder composition API</li>
+<li>Easy composition of small validators into more complex ones.</li>
+<li>Easily extensible</li>
+</ul>
+<h2 id='usage' class='heading'>Usage</h2>
+<h3 id='creating-validators' class='heading'>Creating validators</h3>
+
+<p><strong>Create simple validators from predicates</strong></p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">validateEmail</span> <span class="o">=</span> <span class="kt">Verify</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;.</span><span class="nf">that</span><span class="p">({</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="s">"@"</span><span class="p">)</span> <span class="p">},</span> <span class="nv">otherwise</span><span class="p">:</span> <span class="o">.</span><span class="n">myError</span><span class="p">)</span>
+</code></pre>
+<h3 id='extend-and-reuse-validators' class='heading'>Extend and reuse validators</h3>
+
+<p>You can easily create validators on any type via extensions:</p>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Verify</span> <span class="k">where</span> <span class="kt">Subject</span> <span class="o">==</span> <span class="kt">Int</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">greaterThanZero</span><span class="p">(</span><span class="n">otherwise</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Validator_</span><span class="o">&lt;</span><span class="kt">Subject</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="kt">Verify</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;.</span><span class="nf">that</span><span class="p">({</span> <span class="nv">$0</span>  <span class="o">&gt;</span>  <span class="mi">0</span><span class="p">},</span> <span class="nv">otherwise</span><span class="p">:</span> <span class="n">error</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">extension</span> <span class="kt">Verify</span> <span class="k">where</span> <span class="kt">Subject</span> <span class="o">==</span> <span class="kt">String</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">minLength</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">otherwise</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Validator_</span><span class="o">&lt;</span><span class="kt">Subject</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="kt">Verify</span><span class="o">.</span><span class="nf">that</span><span class="p">({</span> <span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">in</span> <span class="n">string</span><span class="o">.</span><span class="n">count</span> <span class="o">&gt;=</span> <span class="n">value</span> <span class="p">},</span> <span class="nv">otherwise</span><span class="p">:</span> <span class="n">error</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Having created these extensions they will become avaiable like this:</p>
+<pre class="highlight swift"><code><span class="kt">Verify</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;.</span><span class="nf">minLength</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="nv">otherwise</span><span class="p">:</span> <span class="o">.</span><span class="n">myError</span><span class="p">)</span>
+<span class="kt">Verify</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;.</span><span class="nf">greaterThanZero</span><span class="p">(</span><span class="nv">otherwise</span><span class="p">:</span> <span class="o">.</span><span class="n">myOtherError</span><span class="p">)</span>
+</code></pre>
+<h3 id='composition' class='heading'>Composition</h3>
+
+<p>Verify has two flavors of composition, a senquenced or in order composition, or a parallel composition.</p>
+
+<p><strong>Sequenced composition</strong></p>
+
+<p>In sequence composition only one a validator is ran at a time and will accumulate 
+at most one error since the next validator in the chain will only
+be applied when the previous succeeds.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">emailValidator</span> <span class="o">=</span> <span class="kt">Verify</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;.</span><span class="n">inOrder</span> <span class="p">{</span>
+    <span class="kt">Verify</span><span class="o">.</span><span class="nf">that</span><span class="p">({</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="s">"@"</span><span class="p">)},</span> <span class="nv">otherwise</span><span class="p">:</span> <span class="n">invalidEmail</span><span class="p">)</span>
+    <span class="kt">Verify</span><span class="o">.</span><span class="nf">minLength</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="nv">otherwise</span><span class="p">:</span> <span class="n">invalidEmail</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">let</span> <span class="nv">input</span> <span class="o">=</span> <span class="s">"1"</span>
+<span class="n">emailValidator</span><span class="o">.</span><span class="nf">errors</span><span class="p">(</span><span class="n">input</span><span class="p">)</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">1</span>
+</code></pre>
+
+<p>Notice that even the input &ldquo;1&rdquo; fails both the validations only one error will be accumulated.
+This is usually the desired behavour since we want to validate one condition at a time.</p>
+
+<p>Also can be written as: </p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">emailValidator</span> <span class="o">=</span> <span class="kt">Verify</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span>
+    <span class="o">.</span><span class="nf">that</span><span class="p">({</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="s">"@"</span><span class="p">)},</span> <span class="nv">otherwise</span><span class="p">:</span> <span class="n">invalidEmail</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">andThat</span><span class="p">({</span> <span class="nv">$0</span><span class="o">.</span><span class="n">count</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">},</span> <span class="nv">otherwise</span><span class="p">:</span> <span class="n">invalidEmail</span><span class="p">)</span>
+
+<span class="k">let</span> <span class="nv">input</span> <span class="o">=</span> <span class="s">"1"</span>
+<span class="n">emailValidator</span><span class="o">.</span><span class="nf">errors</span><span class="p">(</span><span class="n">input</span><span class="p">)</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">1</span>
+</code></pre>
+
+<p><strong>Parallel composition</strong></p>
+
+<p>In parallel composition we run all validators at once and accumulate all errors.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">emailValidator</span> <span class="o">=</span> <span class="kt">Verify</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;.</span><span class="n">atOnce</span> <span class="p">{</span>
+    <span class="kt">Verify</span><span class="o">.</span><span class="nf">that</span><span class="p">({</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="s">"@"</span><span class="p">)},</span> <span class="nv">otherwise</span><span class="p">:</span> <span class="n">invalidEmail</span><span class="p">)</span>
+    <span class="kt">Verify</span><span class="o">.</span><span class="nf">minLength</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="nv">otherwise</span><span class="p">:</span> <span class="n">invalidEmail</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">let</span> <span class="nv">input</span> <span class="o">=</span> <span class="s">"1"</span>
+<span class="n">emailValidator</span><span class="o">.</span><span class="nf">errors</span><span class="p">(</span><span class="n">input</span><span class="p">)</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">2</span>
+</code></pre>
+
+<p>The previous example will acumulate both errors.</p>
+<h3 id='cheat-sheet' class='heading'>Cheat sheet</h3>
+
+<p><strong>Factories</strong></p>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Method</th>
+<th style="text-align: center">Signature</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">Verify.that</td>
+<td style="text-align: center"><code>(Predicate&lt;S&gt;) -&gt; Validator&lt;S&gt;</code></td>
+<td style="text-align: left">Validates with predicate</td>
+</tr>
+<tr>
+<td style="text-align: left">Verify.at</td>
+<td style="text-align: center"><code>(KeyPath&lt;S, P&gt;, Predicate&lt;P&gt;) -&gt; Validator&lt;S&gt;</code></td>
+<td style="text-align: left">Validates the property focused by keypath</td>
+</tr>
+<tr>
+<td style="text-align: left">Verify.error</td>
+<td style="text-align: center"><code>(Error) -&gt; Validator&lt;S&gt;</code></td>
+<td style="text-align: left">Always fails with specified error</td>
+</tr>
+</tbody></table>
+
+<p><strong>Composition</strong></p>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Method</th>
+<th style="text-align: center">Signature</th>
+<th style="text-align: center">Accumulates errors</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">andThen</td>
+<td style="text-align: center"><code>(Validator&lt;S&gt;) -&gt; Validator&lt;S&gt;</code></td>
+<td style="text-align: center">No</td>
+</tr>
+<tr>
+<td style="text-align: left">andThat / thenCheck</td>
+<td style="text-align: center"><code>(Predicate) -&gt; Validator</code></td>
+<td style="text-align: center">No</td>
+</tr>
+<tr>
+<td style="text-align: left">add</td>
+<td style="text-align: center"><code>(Validator&lt;S&gt;) -&gt; Validator&lt;S&gt;</code></td>
+<td style="text-align: center">Yes</td>
+</tr>
+<tr>
+<td style="text-align: left">addCheck</td>
+<td style="text-align: center"><code>(Predicate&lt;S&gt;) -&gt; Validator&lt;S&gt;</code></td>
+<td style="text-align: center">Yes</td>
+</tr>
+</tbody></table>
+
+<p><strong>Utilities</strong></p>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Method</th>
+<th style="text-align: center">Signature</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">ignore</td>
+<td style="text-align: center"><code>(Predicate&lt;S&gt;) -&gt; Validator&lt;S&gt;</code></td>
+<td style="text-align: left">Bypass validator when the provided predicate holds true</td>
+</tr>
+</tbody></table>
+<h2 id='examples' class='heading'>Examples</h2>
+<h3 id='field-validations' class='heading'>Field validations</h3>
+
+<p>Given a model, for instance a UserRegistration struct:</p>
+<pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">UserRegistration</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">email</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">let</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">let</span> <span class="nv">passwordConfirmation</span><span class="p">:</span> <span class="kt">String</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>we can apply validation to specific properties with keypaths.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">invalidEmail</span> <span class="o">=</span> <span class="kt">UserRegistrationError</span><span class="o">.</span><span class="n">invalidEmail</span>
+<span class="k">let</span> <span class="nv">invalidPassword</span> <span class="o">=</span> <span class="kt">UserRegistrationError</span><span class="o">.</span><span class="n">invalidPassword</span>
+
+<span class="k">let</span> <span class="nv">emailValidator</span> <span class="o">=</span> <span class="kt">Verify</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;.</span><span class="n">inOrder</span> <span class="p">{</span>
+    <span class="kt">Verify</span><span class="o">.</span><span class="nf">minLength</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="nv">otherwise</span><span class="p">:</span> <span class="n">invalidEmail</span><span class="p">)</span>
+    <span class="kt">Verify</span><span class="o">.</span><span class="nf">that</span><span class="p">({</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="s">"@"</span><span class="p">)},</span> <span class="nv">otherwise</span><span class="p">:</span> <span class="n">invalidEmail</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">let</span> <span class="nv">password</span> <span class="o">=</span> <span class="kt">Verify</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;.</span><span class="n">inOrder</span> <span class="p">{</span>
+    <span class="kt">Verify</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;.</span><span class="nf">that</span><span class="p">({</span> <span class="nv">$0</span><span class="o">.</span><span class="n">count</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">},</span> <span class="nv">otherwise</span><span class="p">:</span> <span class="n">invalidPassword</span><span class="p">)</span>
+    <span class="kt">Verify</span><span class="o">.</span><span class="nf">containsSomeOf</span><span class="p">(</span><span class="kt">CharacterSet</span><span class="o">.</span><span class="n">symbols</span><span class="p">,</span> <span class="nv">otherwise</span><span class="p">:</span> <span class="n">invalidPassword</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">let</span> <span class="nv">registrationValidator</span> <span class="o">=</span> <span class="kt">Verify</span><span class="o">&lt;</span><span class="kt">UserRegistration</span><span class="o">&gt;.</span><span class="n">atOnce</span> <span class="p">{</span>
+    <span class="kt">Verify</span><span class="o">&lt;</span><span class="kt">UserRegistration</span><span class="o">&gt;.</span><span class="nf">at</span><span class="p">(\</span><span class="o">.</span><span class="n">email</span><span class="p">,</span> <span class="nv">validator</span><span class="p">:</span> <span class="n">emailValidator</span><span class="p">)</span>
+    <span class="kt">Verify</span><span class="o">&lt;</span><span class="kt">UserRegistration</span><span class="o">&gt;.</span><span class="nf">at</span><span class="p">(\</span><span class="o">.</span><span class="n">password</span><span class="p">,</span> <span class="nv">validator</span><span class="p">:</span> <span class="n">password</span><span class="p">)</span>
+    <span class="kt">Verify</span><span class="o">&lt;</span><span class="kt">UserRegistration</span><span class="o">&gt;.</span><span class="nf">that</span><span class="p">({</span> <span class="nv">$0</span><span class="o">.</span><span class="n">password</span> <span class="o">==</span> <span class="nv">$0</span><span class="o">.</span><span class="n">passwordConfirmation</span>  <span class="p">},</span> <span class="nv">otherwise</span><span class="p">:</span> <span class="kt">UserRegistrationError</span><span class="o">.</span><span class="n">passwordsDontMatch</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">let</span> <span class="nv">errors</span> <span class="o">=</span> <span class="n">registrationValidator</span><span class="o">.</span><span class="nf">errors</span><span class="p">(</span><span class="kt">UserRegistration</span><span class="p">(</span><span class="nv">email</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="s">"19d"</span><span class="p">,</span> <span class="nv">passwordConfirmation</span><span class="p">:</span> <span class="s">"12d"</span><span class="p">))</span>
+
+</code></pre>
+<h3 id='run-a-validator' class='heading'>Run a validator</h3>
+
+<p>Running a validator is a simple as passing in a parameter since its just a function.
+To be a bit more eloquent a <code>verify</code> method is provided, this method is special because besides
+forwarding the argument to the calling validator it can also be used to filter the error list and
+have it cast to a specific error type. Just supply a specific type parameter.</p>
+<h3 id='form-validation' class='heading'>Form validation</h3>
+
+<p>Often times you will have modeled your error type similar to:</p>
+<pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">FormError</span><span class="o">&lt;</span><span class="kt">FieldType</span><span class="o">&gt;</span><span class="p">:</span> <span class="kt">Error</span> <span class="p">{</span>
+    <span class="kd">enum</span> <span class="kt">Reason</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="n">invalidFormat</span><span class="p">,</span> <span class="kd">required</span>
+    <span class="p">}</span>
+
+    <span class="k">let</span> <span class="nv">reason</span><span class="p">:</span> <span class="kt">Reason</span>
+    <span class="k">let</span> <span class="nv">field</span><span class="p">:</span>  <span class="kt">FieldType</span>
+<span class="p">}</span>
+
+<span class="kd">enum</span> <span class="kt">LoginField</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">email</span><span class="p">,</span> <span class="n">password</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>In these scenarios its convenient to be able to group errors by field.</p>
+<pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">LoginFormError</span> <span class="o">=</span> <span class="kt">FormError</span><span class="o">&lt;</span><span class="kt">LoginField</span><span class="o">&gt;</span>
+
+<span class="k">let</span> <span class="nv">validator</span> <span class="o">=</span> <span class="kt">Verify</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;.</span><span class="n">atOnce</span> <span class="p">{</span>
+    <span class="kt">Verify</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;.</span><span class="nf">error</span><span class="p">(</span><span class="kt">LoginFormError</span><span class="p">(</span><span class="nv">reason</span><span class="p">:</span> <span class="o">.</span><span class="n">invalidFormat</span><span class="p">,</span> <span class="nv">field</span><span class="p">:</span> <span class="o">.</span><span class="n">email</span><span class="p">))</span>
+    <span class="kt">Verify</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;.</span><span class="nf">error</span><span class="p">(</span><span class="kt">LoginFormError</span><span class="p">(</span><span class="nv">reason</span><span class="p">:</span> <span class="o">.</span><span class="kd">required</span><span class="p">,</span> <span class="nv">field</span><span class="p">:</span> <span class="o">.</span><span class="n">password</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="k">let</span> <span class="nv">groupedErrors</span><span class="p">:</span> <span class="p">[</span><span class="kt">LoginField</span><span class="p">:</span> <span class="p">[</span><span class="kt">LoginFormError</span><span class="p">]]</span> <span class="o">=</span> <span class="n">validator</span><span class="o">.</span><span class="nf">groupedErrors</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nv">by</span><span class="p">:</span> <span class="p">{</span> <span class="p">(</span><span class="nv">error</span><span class="p">:</span>  <span class="kt">LoginFormError</span><span class="p">)</span> <span class="k">in</span> <span class="n">error</span><span class="o">.</span><span class="n">field</span> <span class="p">})</span>
+
+<span class="c1">//  Or even</span>
+
+<span class="k">let</span> <span class="nv">fieldErrors</span><span class="p">:</span> <span class="p">[</span><span class="kt">LoginField</span><span class="p">:</span> <span class="p">[</span><span class="kt">LoginFormError</span><span class="o">.</span><span class="kt">Reason</span><span class="p">]]</span> <span class="o">=</span> <span class="n">groupedErrors</span><span class="o">.</span><span class="nf">mapValues</span><span class="p">({</span>  <span class="nv">$0</span><span class="o">.</span><span class="nf">map</span><span class="p">({</span> <span class="nv">$0</span><span class="o">.</span><span class="n">reason</span> <span class="p">})})</span>
+</code></pre>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-06-04)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ValidatorT Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/ValidatorT" class="dashAnchor"></a>
+    <a title="ValidatorT Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (61% documented)</p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        ValidatorT Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/ValidatorT.html">ValidatorT</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/Verify.html">Verify</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/ValidationErrors.html">ValidationErrors</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ValidationParallelBuilder.html">ValidationParallelBuilder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ValidationSequencedBuilder.html">ValidationSequencedBuilder</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6Verify9Predicatea">Predicate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6Verify10Validationa">Validation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6Verify11ValidationTa">ValidationT</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6Verify9Validatora">Validator</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>ValidatorT</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">ValidatorT</span><span class="o">&lt;</span><span class="kt">S</span><span class="p">,</span> <span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                </div>
+              </div>
+            <p>A class representing validations that can fail with one or multiple errors
+and can transforma data in the process.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Verify10ValidatorTCyACyxq_Gs6ResultOyq_AA16ValidationErrorsVGxccfc"></a>
+                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Verify10ValidatorTCyACyxq_Gs6ResultOyq_AA16ValidationErrorsVGxccfc">init(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">validation</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:6Verify11ValidationTa">ValidationT</a></span><span class="o">&lt;</span><span class="kt">S</span><span class="p">,</span> <span class="kt">T</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Verify10ValidatorTC14callAsFunctionys6ResultOyq_AA16ValidationErrorsVGxF"></a>
+                    <a name="//apple_ref/swift/Method/callAsFunction(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Verify10ValidatorTC14callAsFunctionys6ResultOyq_AA16ValidationErrorsVGxF">callAsFunction(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">callAsFunction</span><span class="p">(</span><span class="n">_</span> <span class="nv">subject</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">,</span> <span class="kt"><a href="../Structs/ValidationErrors.html">ValidationErrors</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Verify10ValidatorTC4liftyACyxq_Gq_xcFZ"></a>
+                    <a name="//apple_ref/swift/Method/lift(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Verify10ValidatorTC4liftyACyxq_Gq_xcFZ">lift(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a validator that always succeeds</p>
+
+<p>List a pure function into the context of a Validator.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">lift</span><span class="p">(</span><span class="n">_</span> <span class="nv">function</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">S</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ValidatorT</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>value</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The value with which this validator should succeed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Verify10ValidatorTC3mapyACyxqd__Gqd__q_clF"></a>
+                    <a name="//apple_ref/swift/Method/map(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Verify10ValidatorTC3mapyACyxqd__Gqd__q_clF">map(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Transforms the output of the validator i.e the subject/state being
+validated.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">map</span><span class="o">&lt;</span><span class="kt">O</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">O</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ValidatorT</span><span class="o">&lt;</span><span class="kt">S</span><span class="p">,</span> <span class="kt">O</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>transform</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A function that can transform the resulting ouput of the validator.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A validator with the same validation logic of caller but with a potentially different output type and value.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Utilities"></a>
+                <a name="//apple_ref/swift/Section/Utilities" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Utilities"></a>
+                  <h3 class="section-name"><p>Utilities</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Verify10ValidatorTC6verifyys6ResultOyq_AA16ValidationErrorsVGxF"></a>
+                    <a name="//apple_ref/swift/Method/verify(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Verify10ValidatorTC6verifyys6ResultOyq_AA16ValidationErrorsVGxF">verify(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Calls the validator with a provided subject</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">verify</span><span class="p">(</span><span class="n">_</span> <span class="nv">subject</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">,</span> <span class="kt"><a href="../Structs/ValidationErrors.html">ValidationErrors</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Verify10ValidatorTC6errorsySays5Error_pGxF"></a>
+                    <a name="//apple_ref/swift/Method/errors(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Verify10ValidatorTC6errorsySays5Error_pGxF">errors(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Runs the validator and collects errors</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">errors</span><span class="p">(</span><span class="n">_</span> <span class="nv">subject</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Error</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Verify10ValidatorTC6errors_9errorTypeSayqd__Gx_qd__mts5ErrorRd__lF"></a>
+                    <a name="//apple_ref/swift/Method/errors(_:errorType:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Verify10ValidatorTC6errors_9errorTypeSayqd__Gx_qd__mts5ErrorRd__lF">errors(_:<wbr>errorType:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Runs the validator collecting errors of specific type</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">errors</span><span class="o">&lt;</span><span class="kt">CustomError</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">subject</span><span class="p">:</span> <span class="kt">S</span><span class="p">,</span> <span class="nv">errorType</span><span class="p">:</span> <span class="kt">CustomError</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">CustomError</span><span class="p">]</span> <span class="k">where</span> <span class="kt">CustomError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Verify10ValidatorTC13groupedErrors_2bySDyqd_0_Sayqd__GGx_qd_0_qd__XEtSHRd_0_r0_lF"></a>
+                    <a name="//apple_ref/swift/Method/groupedErrors(_:by:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Verify10ValidatorTC13groupedErrors_2bySDyqd_0_Sayqd__GGx_qd_0_qd__XEtSHRd_0_r0_lF">groupedErrors(_:<wbr>by:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Runs the validator and collects error, such that they are arranged by a field type. This is useful for forms</p>
+<pre class="highlight swift"><code><span class="o">-</span> <span class="kt">Parameter</span> <span class="nv">fieldSelector</span><span class="p">:</span> <span class="kt">A</span> <span class="n">function</span> <span class="n">that</span> <span class="n">will</span> <span class="n">convert</span> <span class="n">an</span> <span class="n">error</span> <span class="n">to</span> <span class="n">a</span> <span class="n">specific</span> <span class="n">field</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">groupedErrors</span><span class="o">&lt;</span><span class="kt">ErrorType</span><span class="p">,</span> <span class="kt">Field</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">subject</span><span class="p">:</span> <span class="kt">S</span><span class="p">,</span> <span class="n">by</span> <span class="nv">fieldSelector</span><span class="p">:</span> <span class="p">(</span><span class="kt">ErrorType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Field</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Field</span> <span class="p">:</span> <span class="p">[</span><span class="kt">ErrorType</span><span class="p">]]</span> <span class="k">where</span> <span class="kt">Field</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Composition"></a>
+                <a name="//apple_ref/swift/Section/Composition" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Composition"></a>
+                  <h3 class="section-name"><p>Composition</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Verify10ValidatorTC7andThenyACyxqd__GACyq_qd__GlF"></a>
+                    <a name="//apple_ref/swift/Method/andThen(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Verify10ValidatorTC7andThenyACyxqd__GACyq_qd__GlF">andThen(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a new validator from caller and supplied validator</p>
+
+<p>Implementation of flatMap for Validator class.
+Will only run the provided validator if the caller succeeds</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">andThen</span><span class="o">&lt;</span><span class="kt">O</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">check</span><span class="p">:</span> <span class="kt">ValidatorT</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">,</span> <span class="kt">O</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ValidatorT</span><span class="o">&lt;</span><span class="kt">S</span><span class="p">,</span> <span class="kt">O</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>check</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A validator to compose</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A validators that either succeeds or fails with a single error.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Verify10ValidatorTC3add_5mergeACyxqd_0_GACyxqd__G_qd_0_q__qd__tctr0_lF"></a>
+                    <a name="//apple_ref/swift/Method/add(_:merge:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Verify10ValidatorTC3add_5mergeACyxqd_0_GACyxqd__G_qd_0_q__qd__tctr0_lF">add(_:<wbr>merge:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Chains a parallel validator to caller</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">add</span><span class="o">&lt;</span><span class="kt">T2</span><span class="p">,</span> <span class="kt">O</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">validator</span><span class="p">:</span> <span class="kt">ValidatorT</span><span class="o">&lt;</span><span class="kt">S</span><span class="p">,</span> <span class="kt">T2</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">merge</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">T</span><span class="p">,</span> <span class="kt">T2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">O</span><span class="p">)</span>
+    <span class="o">-&gt;</span> <span class="kt">ValidatorT</span><span class="o">&lt;</span><span class="kt">S</span><span class="p">,</span> <span class="kt">O</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>merge</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A function to merge or select the final output when both validation succeed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A validator that will run the caller validation in parallel with the supplied validator.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Utilities2"></a>
+                <a name="//apple_ref/swift/Section/Utilities" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Utilities2"></a>
+                  <h3 class="section-name"><p>Utilities</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Verify10ValidatorTC8optionalACyxSgq_SgGyF"></a>
+                    <a name="//apple_ref/swift/Method/optional()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Verify10ValidatorTC8optionalACyxSgq_SgGyF">optional()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Convert validator to a validator on optionals</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">optional</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ValidatorT</span><span class="o">&lt;</span><span class="kt">S</span><span class="p">?,</span> <span class="kt">T</span><span class="p">?</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Verify10ValidatorTC8addCheck_9otherwiseACyxq_GSbxc_s5Error_ptF"></a>
+                    <a name="//apple_ref/swift/Method/addCheck(_:otherwise:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Verify10ValidatorTC8addCheck_9otherwiseACyxq_GSbxc_s5Error_ptF">addCheck(_:<wbr>otherwise:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds a check to the caller Validator</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addCheck</span><span class="p">(</span><span class="n">_</span> <span class="nv">check</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:6Verify9Predicatea">Predicate</a></span><span class="o">&lt;</span><span class="kt">S</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">otherwise</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ValidatorT</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>check</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The predicate conforming the agregate validator.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>otherwise</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The error added to the error list of the caller.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Verify10ValidatorTC7andThat_9otherwiseACyxq_GSbxc_s5Error_ptF"></a>
+                    <a name="//apple_ref/swift/Method/andThat(_:otherwise:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Verify10ValidatorTC7andThat_9otherwiseACyxq_GSbxc_s5Error_ptF">andThat(_:<wbr>otherwise:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Chains a validator created from a predicate</p>
+
+<p>Note the validator will only run after the current validator succeeds</p>
+
+<p>This is a shorthand for <code>andThen(Verify.that(...))</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">andThat</span><span class="p">(</span><span class="n">_</span> <span class="nv">predicate</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:6Verify9Predicatea">Predicate</a></span><span class="o">&lt;</span><span class="kt">S</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">otherwise</span> <span class="nv">failure</span><span class="p">:</span> <span class="kt">Error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ValidatorT</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>predicate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A predicate to test when the calling validator succeeds</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>failure</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The error associated with this validator</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Verify10ValidatorTC9thenCheck_9otherwiseACyxq_GSbxc_s5Error_ptF"></a>
+                    <a name="//apple_ref/swift/Method/thenCheck(_:otherwise:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Verify10ValidatorTC9thenCheck_9otherwiseACyxq_GSbxc_s5Error_ptF">thenCheck(_:<wbr>otherwise:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Chaings a validation created from the provided predicate to the caller.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">thenCheck</span><span class="p">(</span><span class="n">_</span> <span class="nv">predicate</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:6Verify9Predicatea">Predicate</a></span><span class="o">&lt;</span><span class="kt">S</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">otherwise</span> <span class="nv">failure</span><span class="p">:</span> <span class="kt">Error</span><span class="p">)</span>
+    <span class="o">-&gt;</span> <span class="kt">ValidatorT</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>predicate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The predicate to check</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Validators that will run a sequential check when the caller succeeds.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Verify10ValidatorTC6thenOn_5checkACyxxGs7KeyPathCyxqd__G_ACyqd__qd__GtlF"></a>
+                    <a name="//apple_ref/swift/Method/thenOn(_:check:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Verify10ValidatorTC6thenOn_5checkACyxxGs7KeyPathCyxqd__G_ACyqd__qd__GtlF">thenOn(_:<wbr>check:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Chains a validator that acts on a subfield of the current subject.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">thenOn</span><span class="o">&lt;</span><span class="kt">F</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">keyPath</span><span class="p">:</span> <span class="kt">KeyPath</span><span class="o">&lt;</span><span class="kt">S</span><span class="p">,</span> <span class="kt">F</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">check</span> <span class="nv">validator</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:6Verify9Validatora">Validator</a></span><span class="o">&lt;</span><span class="kt">F</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:6Verify9Validatora">Validator</a></span><span class="o">&lt;</span><span class="kt">S</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>keyPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The property keypath to focus on</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>check</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The validator to apply</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Validators that includes checks from caller and the validation on child property.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60S%60%20%3D%3D%20%60T%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `S` == `T`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60S%60%20%3D%3D%20%60T%60"></a>
+                  <h3 class="section-name"><p>Available where <code>S</code> == <code>T</code></p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Verify10ValidatorTCAAq_RszrlE6ignore4whenACyxxGSbxc_tF"></a>
+                    <a name="//apple_ref/swift/Method/ignore(when:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Verify10ValidatorTCAAq_RszrlE6ignore4whenACyxxGSbxc_tF">ignore(when:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Bypass the validator when a certain condition holds true</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">ignore</span><span class="p">(</span><span class="n">when</span> <span class="nv">predicate</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:6Verify9Predicatea">Predicate</a></span><span class="o">&lt;</span><span class="kt">S</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ValidatorT</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>predicate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A predicate determining if should bypass or not</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-06-04)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
