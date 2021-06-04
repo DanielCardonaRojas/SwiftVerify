@@ -11,6 +11,7 @@ A flexible state validation solution.
 - Function builder composition API
 - Easy composition of small validators into more complex ones.
 - Easily extensible
+- Documented [here](https://danielcardonarojas.github.io/SwiftVerify)
 
 ## Usage
 
@@ -21,6 +22,7 @@ A flexible state validation solution.
 ```swift
 let validateEmail = Verify<String>.that({ $0.contains("@") }, otherwise: .myError)
 ```
+
 ### Extend and reuse validators
 
 You can easily create validators on any type via extensions:
@@ -52,7 +54,7 @@ Verify has two flavors of composition, a senquenced or in order composition, or 
 
 **Sequenced composition**
 
-In sequence composition only one a validator is ran at a time and will accumulate 
+In sequence composition only one a validator is ran at a time and will accumulate
 at most one error since the next validator in the chain will only
 be applied when the previous succeeds.
 
@@ -69,7 +71,7 @@ emailValidator.errors(input).count == 1
 Notice that even the input "1" fails both the validations only one error will be accumulated.
 This is usually the desired behavour since we want to validate one condition at a time.
 
-Also can be written as: 
+Also can be written as:
 
 ```swift
 let emailValidator = Verify<String>
@@ -79,8 +81,6 @@ let emailValidator = Verify<String>
 let input = "1"
 emailValidator.errors(input).count == 1
 ```
-
-
 
 **Parallel composition**
 
@@ -99,7 +99,6 @@ emailValidator.errors(input).count == 2
 The previous example will acumulate both errors.
 
 ### Cheat sheet
-
 
 **Factories**
 
@@ -123,7 +122,6 @@ The previous example will acumulate both errors.
 | Method |            Signature             | Description                                             |
 | :----- | :------------------------------: | :------------------------------------------------------ |
 | ignore | `(Predicate<S>) -> Validator<S>` | Bypass validator when the provided predicate holds true |
-
 
 ## Examples
 

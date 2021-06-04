@@ -1,8 +1,15 @@
 import Foundation
 
+/// Underlying function signature for validators that can transform the validated subject type
 public typealias ValidationT<S, T> = (S) -> Result<T, ValidationErrors>
+
+/// Underlying function signature for validators
 public typealias Validation<S> = (S) -> Result<S, ValidationErrors>
+
+/// Function signature for predicates on validated subject types
 public typealias Predicate<S> = (S) -> Bool
+
+
 public typealias Validator<S> = ValidatorT<S, S>
 
 /// A class representing validations that can fail with one or multiple errors
@@ -380,6 +387,8 @@ public struct ValidationParallelBuilder<Subject> {
 }
 
 // MARK: - ValidationErrors
+
+/// Represents the list of errors of a validation
 public struct ValidationErrors: Error, LocalizedError {
     public var errors: [Error]
 
