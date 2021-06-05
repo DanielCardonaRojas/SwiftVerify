@@ -1,0 +1,124 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/runner/work/SwiftVerify/SwiftVerify/Sources/Verify/Validator+String.swift",
+      "line": 10,
+      "symbol": "Verify.greaterThanZero(otherwise:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftVerify/SwiftVerify/Sources/Verify/Validator+String.swift",
+      "line": 16,
+      "symbol": "Verify.that(_:otherwise:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftVerify/SwiftVerify/Sources/Verify/Validator+String.swift",
+      "line": 106,
+      "symbol": "String.~=(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftVerify/SwiftVerify/Sources/Verify/Verify.swift",
+      "line": 9,
+      "symbol": "Verify",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftVerify/SwiftVerify/Sources/Verify/Verify.swift",
+      "line": 13,
+      "symbol": "Validator",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftVerify/SwiftVerify/Sources/Verify/Verify.swift",
+      "line": 15,
+      "symbol": "Verify",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftVerify/SwiftVerify/Sources/Verify/Verify.swift",
+      "line": 20,
+      "symbol": "ValidatorT.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftVerify/SwiftVerify/Sources/Verify/Verify.swift",
+      "line": 24,
+      "symbol": "ValidatorT.callAsFunction(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftVerify/SwiftVerify/Sources/Verify/Verify.swift",
+      "line": 222,
+      "symbol": "Verify",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftVerify/SwiftVerify/Sources/Verify/Verify.swift",
+      "line": 376,
+      "symbol": "ValidationSequencedBuilder.buildBlock(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftVerify/SwiftVerify/Sources/Verify/Verify.swift",
+      "line": 382,
+      "symbol": "ValidationParallelBuilder",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftVerify/SwiftVerify/Sources/Verify/Verify.swift",
+      "line": 384,
+      "symbol": "ValidationParallelBuilder.buildBlock(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftVerify/SwiftVerify/Sources/Verify/Verify.swift",
+      "line": 393,
+      "symbol": "ValidationErrors.errors",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftVerify/SwiftVerify/Sources/Verify/Verify.swift",
+      "line": 395,
+      "symbol": "ValidationErrors.subscript(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.subscript",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftVerify/SwiftVerify/Sources/Verify/Verify.swift",
+      "line": 399,
+      "symbol": "ValidationErrors.first",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftVerify/SwiftVerify/Sources/Verify/Verify.swift",
+      "line": 403,
+      "symbol": "ValidationErrors.last",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftVerify/SwiftVerify/Sources/Verify/Verify.swift",
+      "line": 407,
+      "symbol": "ValidationErrors.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/runner/work/SwiftVerify/SwiftVerify"
+}
